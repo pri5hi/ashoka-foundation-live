@@ -51,7 +51,7 @@ function Projects() {
                     </dt>
                     <dd className="mt-1 text-sm text-foreground/80">{p.impactGoal}</dd>
                   </div>
-                  <div className="mt-6 pt-2">
+                  <div className="mt-auto pt-6">
                     <Button asChild variant="outline" className="w-full">
                       <Link to="/gallery">
                         Explore More <ArrowRight className="ml-1 h-4 w-4" />
