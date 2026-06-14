@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS public.help_requests CASCADE;
