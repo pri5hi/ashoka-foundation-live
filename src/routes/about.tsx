@@ -23,10 +23,10 @@ const values = [
 ];
 
 const leaders = [
-  { name: "Aarav Sharma", role: "Founder & Chairperson", bio: "20+ years in social development across rural India." },
-  { name: "Dr. Neha Verma", role: "Trustee — Healthcare", bio: "Public-health physician leading our medical camps." },
-  { name: "Imran Sheikh", role: "Trustee — Operations", bio: "Coordinates field teams across 12 cities." },
-  { name: "Priya Iyer", role: "Programs Lead", bio: "Designs our education and women-empowerment work." },
+  { name: "Dibyansh Rao", role: "Founder", bio: "Leads the vision and strategic direction of Creative Ashoka Foundation, driving initiatives that create meaningful and sustainable social impact in communities." },
+  { name: "Saurabh Singh", role: "Co-Founder", bio: "Supports organizational growth and development while helping strengthen community outreach, partnerships, and foundation initiatives." },
+  { name: "Animesh Mishra", role: "Secretary", bio: "Oversees coordination, administration, and operational activities to ensure the smooth execution of programs and organizational objectives." },
+  { name: "Prashant Pandey", role: "UDAAN Coordinator", bio: "Leads the UDAAN Education Support Program, working closely with volunteers and beneficiaries to expand educational opportunities for children and youth." },
 ];
 
 function About() {
