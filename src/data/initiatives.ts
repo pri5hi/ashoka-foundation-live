@@ -1,8 +1,8 @@
-import { GraduationCap, Utensils, PawPrint, Leaf, Sparkles, type LucideIcon } from "lucide-react";
+import { GraduationCap, Sparkles, Utensils, PawPrint, Leaf, type LucideIcon } from "lucide-react";
 import causeEdu from "@/assets/cause-education.jpg";
+import causeWomen from "@/assets/cause-women.jpg";
 import causeFood from "@/assets/cause-food.jpg";
 import causeCommunity from "@/assets/cause-community.jpg";
-import causeWomen from "@/assets/cause-women.jpg";
 import projectGreen from "@/assets/project-1.jpg";
 
 export type Initiative = {
@@ -29,6 +29,19 @@ export const initiatives: Initiative[] = [
       "Empower 5,000+ children with quality education access, mentorship, and the confidence to dream beyond their circumstances.",
     image: causeEdu,
     icon: GraduationCap,
+  },
+  {
+    slug: "swabhimaan",
+    name: "SWABHIMAAN",
+    category: "Women Empowerment Initiative",
+    shortDesc:
+      "Skill training, livelihood support and rights awareness empowering women to build dignified, independent lives.",
+    description:
+      "SWABHIMAAN — dignity through self-reliance. The initiative offers vocational training, micro-enterprise support, legal and rights awareness, and confidence-building workshops for women from underserved communities. We partner with trainers, mentors and local enterprises to turn skills into sustainable livelihoods.",
+    impactGoal:
+      "Train and empower 2,000+ women with marketable skills, financial literacy and the confidence to lead.",
+    image: causeWomen,
+    icon: Sparkles,
   },
   {
     slug: "ann-se-ashirwad",
@@ -68,18 +81,5 @@ export const initiatives: Initiative[] = [
       "Plant 25,000+ trees, run 100+ community cleanliness drives and educate the next generation on sustainable living.",
     image: projectGreen,
     icon: Leaf,
-  },
-  {
-    slug: "swabhimaan",
-    name: "SWABHIMAAN",
-    category: "Women Empowerment Initiative",
-    shortDesc:
-      "Skill training, livelihood support and rights awareness empowering women to build dignified, independent lives.",
-    description:
-      "SWABHIMAAN — dignity through self-reliance. The initiative offers vocational training, micro-enterprise support, legal and rights awareness, and confidence-building workshops for women from underserved communities. We partner with trainers, mentors and local enterprises to turn skills into sustainable livelihoods.",
-    impactGoal:
-      "Train and empower 2,000+ women with marketable skills, financial literacy and the confidence to lead.",
-    image: causeWomen,
-    icon: Sparkles,
   },
 ];
