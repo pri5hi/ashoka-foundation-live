@@ -98,26 +98,25 @@ function Gallery() {
 
           <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid">
             {list.map((p, i) => (
-              <button key={i} onClick={() => setLightbox(p.src)} className="group block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-                <img src={p.src} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+              <button key={i} onClick={() => setLightbox(p)} className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+                {p.type === "video" ? (
+                  <>
+                    {p.poster ? (
+                      <img src={p.poster} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                      <video src={p.src} preload="metadata" muted playsInline className="w-full" />
+                    )}
+                    <div className="pointer-events-none absolute inset-0 grid place-items-center bg-black/20">
+                      <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevated transition group-hover:scale-110">
+                        <Play className="h-6 w-6 fill-current" />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <img src={p.src} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+                )}
               </button>
             ))}
-          </div>
-
-          <div className="mt-16">
-            <h2 className="font-display text-2xl font-bold text-primary">Video Stories</h2>
-            <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {[1,2,3].map((i) => (
-                <div key={i} className="group relative aspect-video overflow-hidden rounded-2xl border border-border shadow-soft gradient-hero">
-                  <div className="absolute inset-0 grid place-items-center">
-                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevated transition group-hover:scale-110">
-                      <Play className="h-6 w-6 fill-current" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-3 left-3 text-xs font-semibold text-white">Field Story #{i}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -125,7 +124,11 @@ function Gallery() {
       {lightbox && (
         <div onClick={() => setLightbox(null)} role="dialog" aria-modal className="fixed inset-0 z-[60] grid place-items-center bg-black/85 p-4">
           <button aria-label="Close" className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-foreground"><X className="h-5 w-5" /></button>
-          <img src={lightbox} alt="" className="max-h-[88vh] max-w-full rounded-lg shadow-elevated" />
+          {lightbox.type === "video" ? (
+            <video src={lightbox.src} controls autoPlay playsInline onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated bg-black" />
+          ) : (
+            <img src={lightbox.src} alt={lightbox.alt} onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated" />
+          )}
         </div>
       )}
     </>
