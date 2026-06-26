@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/Layout";
 import { Heart, Eye, Compass, Users, Shield, HandHeart, Sparkles } from "lucide-react";
+import dibyanshAsset from "@/assets/dibyansh-rao.jpg.asset.json";
+import saurabhAsset from "@/assets/saurabh-singh.jpg.asset.json";
+import animeshAsset from "@/assets/animesh-mishra.png.asset.json";
+import prashantAsset from "@/assets/prashant-pandey.jpg.asset.json";
+
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -23,11 +28,12 @@ const values = [
 ];
 
 const leaders = [
-  { name: "Dibyansh Rao", role: "Founder", bio: "Leads the vision and strategic direction of Creative Ashoka Foundation, driving initiatives that create meaningful and sustainable social impact in communities." },
-  { name: "Saurabh Singh", role: "Co-Founder", bio: "Supports organizational growth and development while helping strengthen community outreach, partnerships, and foundation initiatives." },
-  { name: "Animesh Mishra", role: "Secretary", bio: "Oversees coordination, administration, and operational activities to ensure the smooth execution of programs and organizational objectives." },
-  { name: "Prashant Pandey", role: "UDAAN Coordinator", bio: "Leads the UDAAN Education Support Program, working closely with volunteers and beneficiaries to expand educational opportunities for children and youth." },
+  { name: "Dibyansh Rao", role: "Founder", bio: "Leads the vision and strategic direction of Creative Ashoka Foundation, driving initiatives that create meaningful and sustainable social impact in communities.", img: dibyanshAsset.url },
+  { name: "Saurabh Singh", role: "Co-Founder", bio: "Supports organizational growth and development while helping strengthen community outreach, partnerships, and foundation initiatives.", img: saurabhAsset.url },
+  { name: "Animesh Mishra", role: "Secretary", bio: "Oversees coordination, administration, and operational activities to ensure the smooth execution of programs and organizational objectives.", img: animeshAsset.url },
+  { name: "Prashant Pandey", role: "UDAAN Coordinator", bio: "Leads the UDAAN Education Support Program, working closely with volunteers and beneficiaries to expand educational opportunities for children and youth.", img: prashantAsset.url },
 ];
+
 
 function About() {
   return (
@@ -92,7 +98,7 @@ function About() {
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {leaders.map((l) => (
               <div key={l.name} className="rounded-2xl border border-border bg-card p-6 text-center shadow-soft">
-                <div className="mx-auto h-20 w-20 rounded-full gradient-hero" aria-hidden />
+                <img src={l.img} alt={l.name} loading="lazy" className="mx-auto h-24 w-24 rounded-full object-cover ring-2 ring-accent/30" />
                 <h3 className="mt-4 font-display font-semibold text-primary">{l.name}</h3>
                 <p className="text-xs uppercase tracking-wider text-accent">{l.role}</p>
                 <p className="mt-3 text-sm text-muted-foreground">{l.bio}</p>
