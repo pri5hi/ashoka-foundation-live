@@ -23,13 +23,15 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-type Cat = "All" | "UDAAN" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+type Cat = "All" | "UDAAN" | "HAR JEEVAN ANMOL" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+
+type MediaItem = { src: string; cat: Exclude<Cat, "All">; alt: string; type?: "image" | "video"; poster?: string };
 
 const udaanModules = import.meta.glob("@/assets/udaan/Udaan*.jpg.asset.json", {
   eager: true,
 }) as Record<string, { default: { url: string; original_filename: string } }>;
 
-const udaanPhotos = Object.values(udaanModules)
+const udaanPhotos: MediaItem[] = Object.values(udaanModules)
   .map((m) => m.default)
   .filter((a) => !/Udaan_Header/i.test(a.original_filename))
   .sort((a, b) => {
@@ -37,25 +39,50 @@ const udaanPhotos = Object.values(udaanModules)
     const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
     return na - nb;
   })
-  .map((a) => ({ src: a.url, cat: "UDAAN" as const, alt: `UDAAN — ${a.original_filename.replace(/\.[^.]+$/, "")}` }));
+  .map((a) => ({ src: a.url, cat: "UDAAN" as const, alt: `UDAAN — ${a.original_filename.replace(/\.[^.]+$/, "")}`, type: "image" }));
 
-const photos: { src: string; cat: Exclude<Cat, "All">; alt: string }[] = [
+const hjaModules = import.meta.glob("@/assets/har-jeevan-anmol/*.asset.json", {
+  eager: true,
+}) as Record<string, { default: { url: string; original_filename: string } }>;
+
+const hjaHeaderUrl = Object.values(hjaModules).find((m) => /Header/i.test(m.default.original_filename))?.default.url;
+
+const hjaMedia: MediaItem[] = Object.values(hjaModules)
+  .map((m) => m.default)
+  .sort((a, b) => {
+    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
+    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
+    return na - nb;
+  })
+  .map((a) => {
+    const isVideo = /\.(mp4|webm|mov)$/i.test(a.original_filename);
+    return {
+      src: a.url,
+      cat: "HAR JEEVAN ANMOL" as const,
+      alt: `HAR JEEVAN ANMOL — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
+      type: isVideo ? ("video" as const) : ("image" as const),
+      poster: isVideo ? hjaHeaderUrl : undefined,
+    };
+  });
+
+const photos: MediaItem[] = [
   ...udaanPhotos,
-  { src: causeFood, cat: "Food Drives", alt: "Food distribution" },
-  { src: causeEdu, cat: "Education", alt: "Classroom" },
-  { src: causeHealth, cat: "Medical Camps", alt: "Free health camp" },
-  { src: causeWomen, cat: "Volunteers", alt: "Skill training" },
-  { src: causeCommunity, cat: "Community", alt: "Cleanliness drive" },
-  { src: p1, cat: "Community", alt: "Tree plantation" },
-  { src: p2, cat: "Food Drives", alt: "Flood relief" },
-  { src: p3, cat: "Education", alt: "Scholarship recipient" },
+  ...hjaMedia,
+  { src: causeFood, cat: "Food Drives", alt: "Food distribution", type: "image" },
+  { src: causeEdu, cat: "Education", alt: "Classroom", type: "image" },
+  { src: causeHealth, cat: "Medical Camps", alt: "Free health camp", type: "image" },
+  { src: causeWomen, cat: "Volunteers", alt: "Skill training", type: "image" },
+  { src: causeCommunity, cat: "Community", alt: "Cleanliness drive", type: "image" },
+  { src: p1, cat: "Community", alt: "Tree plantation", type: "image" },
+  { src: p2, cat: "Food Drives", alt: "Flood relief", type: "image" },
+  { src: p3, cat: "Education", alt: "Scholarship recipient", type: "image" },
 ];
 
-const cats: Cat[] = ["All", "UDAAN", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
+const cats: Cat[] = ["All", "UDAAN", "HAR JEEVAN ANMOL", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
 
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<MediaItem | null>(null);
   const list = f === "All" ? photos : photos.filter((p) => p.cat === f);
 
   return (
@@ -71,26 +98,25 @@ function Gallery() {
 
           <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid">
             {list.map((p, i) => (
-              <button key={i} onClick={() => setLightbox(p.src)} className="group block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-                <img src={p.src} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+              <button key={i} onClick={() => setLightbox(p)} className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+                {p.type === "video" ? (
+                  <>
+                    {p.poster ? (
+                      <img src={p.poster} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                      <video src={p.src} preload="metadata" muted playsInline className="w-full" />
+                    )}
+                    <div className="pointer-events-none absolute inset-0 grid place-items-center bg-black/20">
+                      <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevated transition group-hover:scale-110">
+                        <Play className="h-6 w-6 fill-current" />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <img src={p.src} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+                )}
               </button>
             ))}
-          </div>
-
-          <div className="mt-16">
-            <h2 className="font-display text-2xl font-bold text-primary">Video Stories</h2>
-            <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {[1,2,3].map((i) => (
-                <div key={i} className="group relative aspect-video overflow-hidden rounded-2xl border border-border shadow-soft gradient-hero">
-                  <div className="absolute inset-0 grid place-items-center">
-                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevated transition group-hover:scale-110">
-                      <Play className="h-6 w-6 fill-current" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-3 left-3 text-xs font-semibold text-white">Field Story #{i}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -98,7 +124,11 @@ function Gallery() {
       {lightbox && (
         <div onClick={() => setLightbox(null)} role="dialog" aria-modal className="fixed inset-0 z-[60] grid place-items-center bg-black/85 p-4">
           <button aria-label="Close" className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-foreground"><X className="h-5 w-5" /></button>
-          <img src={lightbox} alt="" className="max-h-[88vh] max-w-full rounded-lg shadow-elevated" />
+          {lightbox.type === "video" ? (
+            <video src={lightbox.src} controls autoPlay playsInline onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated bg-black" />
+          ) : (
+            <img src={lightbox.src} alt={lightbox.alt} onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated" />
+          )}
         </div>
       )}
     </>
