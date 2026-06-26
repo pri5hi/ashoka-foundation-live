@@ -1,9 +1,9 @@
 import { GraduationCap, Sparkles, Utensils, PawPrint, Leaf, type LucideIcon } from "lucide-react";
-import causeEdu from "@/assets/cause-education.jpg";
 import causeWomen from "@/assets/cause-women.jpg";
 import causeFood from "@/assets/cause-food.jpg";
 import causeCommunity from "@/assets/cause-community.jpg";
 import projectGreen from "@/assets/project-1.jpg";
+import udaanHeader from "@/assets/udaan/Udaan_Header.jpg.asset.json";
 
 export type Initiative = {
   slug: string;
