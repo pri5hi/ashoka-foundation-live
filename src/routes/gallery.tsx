@@ -23,13 +23,15 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-type Cat = "All" | "UDAAN" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+type Cat = "All" | "UDAAN" | "HAR JEEVAN ANMOL" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+
+type MediaItem = { src: string; cat: Exclude<Cat, "All">; alt: string; type?: "image" | "video"; poster?: string };
 
 const udaanModules = import.meta.glob("@/assets/udaan/Udaan*.jpg.asset.json", {
   eager: true,
 }) as Record<string, { default: { url: string; original_filename: string } }>;
 
-const udaanPhotos = Object.values(udaanModules)
+const udaanPhotos: MediaItem[] = Object.values(udaanModules)
   .map((m) => m.default)
   .filter((a) => !/Udaan_Header/i.test(a.original_filename))
   .sort((a, b) => {
@@ -37,25 +39,50 @@ const udaanPhotos = Object.values(udaanModules)
     const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
     return na - nb;
   })
-  .map((a) => ({ src: a.url, cat: "UDAAN" as const, alt: `UDAAN — ${a.original_filename.replace(/\.[^.]+$/, "")}` }));
+  .map((a) => ({ src: a.url, cat: "UDAAN" as const, alt: `UDAAN — ${a.original_filename.replace(/\.[^.]+$/, "")}`, type: "image" }));
 
-const photos: { src: string; cat: Exclude<Cat, "All">; alt: string }[] = [
+const hjaModules = import.meta.glob("@/assets/har-jeevan-anmol/*.asset.json", {
+  eager: true,
+}) as Record<string, { default: { url: string; original_filename: string } }>;
+
+const hjaHeaderUrl = Object.values(hjaModules).find((m) => /Header/i.test(m.default.original_filename))?.default.url;
+
+const hjaMedia: MediaItem[] = Object.values(hjaModules)
+  .map((m) => m.default)
+  .sort((a, b) => {
+    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
+    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
+    return na - nb;
+  })
+  .map((a) => {
+    const isVideo = /\.(mp4|webm|mov)$/i.test(a.original_filename);
+    return {
+      src: a.url,
+      cat: "HAR JEEVAN ANMOL" as const,
+      alt: `HAR JEEVAN ANMOL — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
+      type: isVideo ? ("video" as const) : ("image" as const),
+      poster: isVideo ? hjaHeaderUrl : undefined,
+    };
+  });
+
+const photos: MediaItem[] = [
   ...udaanPhotos,
-  { src: causeFood, cat: "Food Drives", alt: "Food distribution" },
-  { src: causeEdu, cat: "Education", alt: "Classroom" },
-  { src: causeHealth, cat: "Medical Camps", alt: "Free health camp" },
-  { src: causeWomen, cat: "Volunteers", alt: "Skill training" },
-  { src: causeCommunity, cat: "Community", alt: "Cleanliness drive" },
-  { src: p1, cat: "Community", alt: "Tree plantation" },
-  { src: p2, cat: "Food Drives", alt: "Flood relief" },
-  { src: p3, cat: "Education", alt: "Scholarship recipient" },
+  ...hjaMedia,
+  { src: causeFood, cat: "Food Drives", alt: "Food distribution", type: "image" },
+  { src: causeEdu, cat: "Education", alt: "Classroom", type: "image" },
+  { src: causeHealth, cat: "Medical Camps", alt: "Free health camp", type: "image" },
+  { src: causeWomen, cat: "Volunteers", alt: "Skill training", type: "image" },
+  { src: causeCommunity, cat: "Community", alt: "Cleanliness drive", type: "image" },
+  { src: p1, cat: "Community", alt: "Tree plantation", type: "image" },
+  { src: p2, cat: "Food Drives", alt: "Flood relief", type: "image" },
+  { src: p3, cat: "Education", alt: "Scholarship recipient", type: "image" },
 ];
 
-const cats: Cat[] = ["All", "UDAAN", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
+const cats: Cat[] = ["All", "UDAAN", "HAR JEEVAN ANMOL", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
 
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<MediaItem | null>(null);
   const list = f === "All" ? photos : photos.filter((p) => p.cat === f);
 
   return (
