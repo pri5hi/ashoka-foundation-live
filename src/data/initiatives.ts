@@ -27,7 +27,7 @@ export const initiatives: Initiative[] = [
       "UDAAN is our flagship education initiative dedicated to opening doors of opportunity for children and youth from underprivileged backgrounds. Through learning materials, after-school tuition, mentorship circles and academic guidance, we ensure that no child is held back by circumstance. The program partners with local schools, volunteers and educators to deliver continuous, structured support — from foundational literacy to career counselling.",
     impactGoal:
       "Empower 5,000+ children with quality education access, mentorship, and the confidence to dream beyond their circumstances.",
-    image: causeEdu,
+    image: udaanHeader.url,
     icon: GraduationCap,
   },
   {
