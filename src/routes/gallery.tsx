@@ -23,8 +23,24 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-type Cat = "All" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+type Cat = "All" | "UDAAN" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+
+const udaanModules = import.meta.glob("@/assets/udaan/Udaan*.jpg.asset.json", {
+  eager: true,
+}) as Record<string, { default: { url: string; original_filename: string } }>;
+
+const udaanPhotos = Object.values(udaanModules)
+  .map((m) => m.default)
+  .filter((a) => !/Udaan_Header/i.test(a.original_filename))
+  .sort((a, b) => {
+    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
+    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
+    return na - nb;
+  })
+  .map((a) => ({ src: a.url, cat: "UDAAN" as const, alt: `UDAAN — ${a.original_filename.replace(/\.[^.]+$/, "")}` }));
+
 const photos: { src: string; cat: Exclude<Cat, "All">; alt: string }[] = [
+  ...udaanPhotos,
   { src: causeFood, cat: "Food Drives", alt: "Food distribution" },
   { src: causeEdu, cat: "Education", alt: "Classroom" },
   { src: causeHealth, cat: "Medical Camps", alt: "Free health camp" },
@@ -35,7 +51,7 @@ const photos: { src: string; cat: Exclude<Cat, "All">; alt: string }[] = [
   { src: p3, cat: "Education", alt: "Scholarship recipient" },
 ];
 
-const cats: Cat[] = ["All", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
+const cats: Cat[] = ["All", "UDAAN", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
 
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
