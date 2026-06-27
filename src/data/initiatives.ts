@@ -4,6 +4,7 @@ import causeFood from "@/assets/cause-food.jpg";
 import udaanHeader from "@/assets/udaan/Udaan_Header.jpg.asset.json";
 import hjaHeader from "@/assets/har-jeevan-anmol/HarJeevanAnmol_Header.jpg.asset.json";
 import vasundharaHeader from "@/assets/vasundhara/Vasundhara_Header.jpg.asset.json";
+import annSeAshirwadHeader from "@/assets/ann-se-ashirwad/AnnSeAashirvaad_Header.jpg.asset.json";
 
 
 export type Initiative = {
@@ -54,7 +55,7 @@ export const initiatives: Initiative[] = [
       "ANN SE ASHIRWAD addresses hunger at its root. Through daily meal drives, ration kit distribution and community kitchens, we serve nutritious food to families, daily-wage workers, the elderly and anyone in crisis. Every meal carries dignity, warmth and the assurance that no one in our community has to sleep hungry.",
     impactGoal:
       "Serve 1,00,000+ nutritious meals annually and supply monthly ration kits to vulnerable families across our service areas.",
-    image: causeFood,
+    image: annSeAshirwadHeader.url,
     icon: Utensils,
   },
   {
