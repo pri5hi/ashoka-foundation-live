@@ -90,6 +90,31 @@ const vasMedia: MediaItem[] = Object.values(vasModules)
     };
   });
 
+const asaModules = import.meta.glob("@/assets/ann-se-ashirwad/*.asset.json", {
+  eager: true,
+}) as Record<string, { default: { url: string; original_filename: string } }>;
+
+const asaHeaderUrl = Object.values(asaModules).find((m) => /Header/i.test(m.default.original_filename))?.default.url;
+
+const asaMedia: MediaItem[] = Object.values(asaModules)
+  .map((m) => m.default)
+  .filter((a) => !/Header/i.test(a.original_filename))
+  .sort((a, b) => {
+    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
+    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
+    return na - nb;
+  })
+  .map((a) => {
+    const isVideo = /\.(mp4|webm|mov)$/i.test(a.original_filename);
+    return {
+      src: a.url,
+      cat: "ANN SE ASHIRWAD" as const,
+      alt: `ANN SE ASHIRWAD — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
+      type: isVideo ? ("video" as const) : ("image" as const),
+      poster: isVideo ? asaHeaderUrl : undefined,
+    };
+  });
+
 const photos: MediaItem[] = [
   ...udaanPhotos,
   ...hjaMedia,
