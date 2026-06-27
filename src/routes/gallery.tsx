@@ -23,7 +23,7 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-type Cat = "All" | "UDAAN" | "HAR JEEVAN ANMOL" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+type Cat = "All" | "UDAAN" | "HAR JEEVAN ANMOL" | "VASUNDHARA" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
 
 type MediaItem = { src: string; cat: Exclude<Cat, "All">; alt: string; type?: "image" | "video"; poster?: string };
 
@@ -65,9 +65,36 @@ const hjaMedia: MediaItem[] = Object.values(hjaModules)
     };
   });
 
+const vasModules = import.meta.glob("@/assets/vasundhara/*.asset.json", {
+  eager: true,
+}) as Record<string, { default: { url: string; original_filename: string } }>;
+
+const vasHeaderUrl = Object.values(vasModules).find((m) => /Header/i.test(m.default.original_filename))?.default.url;
+
+const vasMedia: MediaItem[] = Object.values(vasModules)
+  .map((m) => m.default)
+  .filter((a) => !/Header/i.test(a.original_filename))
+  .sort((a, b) => {
+    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
+    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
+    return na - nb;
+  })
+  .map((a) => {
+    const isVideo = /\.(mp4|webm|mov)$/i.test(a.original_filename);
+    return {
+      src: a.url,
+      cat: "VASUNDHARA" as const,
+      alt: `VASUNDHARA — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
+      type: isVideo ? ("video" as const) : ("image" as const),
+      poster: isVideo ? vasHeaderUrl : undefined,
+    };
+  });
+
 const photos: MediaItem[] = [
   ...udaanPhotos,
   ...hjaMedia,
+  ...vasMedia,
+
   { src: causeFood, cat: "Food Drives", alt: "Food distribution", type: "image" },
   { src: causeEdu, cat: "Education", alt: "Classroom", type: "image" },
   { src: causeHealth, cat: "Medical Camps", alt: "Free health camp", type: "image" },
@@ -78,7 +105,7 @@ const photos: MediaItem[] = [
   { src: p3, cat: "Education", alt: "Scholarship recipient", type: "image" },
 ];
 
-const cats: Cat[] = ["All", "UDAAN", "HAR JEEVAN ANMOL", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
+const cats: Cat[] = ["All", "UDAAN", "HAR JEEVAN ANMOL", "VASUNDHARA", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
 
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
