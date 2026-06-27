@@ -61,7 +61,6 @@ const hjaMedia: MediaItem[] = Object.values(hjaModules)
       cat: "HAR JEEVAN ANMOL" as const,
       alt: `HAR JEEVAN ANMOL — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
       type: isVideo ? ("video" as const) : ("image" as const),
-      poster: isVideo ? hjaHeaderUrl : undefined,
     };
   });
 
@@ -86,7 +85,6 @@ const vasMedia: MediaItem[] = Object.values(vasModules)
       cat: "VASUNDHARA" as const,
       alt: `VASUNDHARA — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
       type: isVideo ? ("video" as const) : ("image" as const),
-      poster: isVideo ? vasHeaderUrl : undefined,
     };
   });
 
@@ -111,7 +109,6 @@ const asaMedia: MediaItem[] = Object.values(asaModules)
       cat: "ANN SE ASHIRWAD" as const,
       alt: `ANN SE ASHIRWAD — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
       type: isVideo ? ("video" as const) : ("image" as const),
-      poster: isVideo ? asaHeaderUrl : undefined,
     };
   });
 
