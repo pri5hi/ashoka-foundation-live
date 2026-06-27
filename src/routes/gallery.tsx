@@ -23,7 +23,7 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-type Cat = "All" | "UDAAN" | "HAR JEEVAN ANMOL" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+type Cat = "All" | "UDAAN" | "HAR JEEVAN ANMOL" | "VASUNDHARA" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
 
 type MediaItem = { src: string; cat: Exclude<Cat, "All">; alt: string; type?: "image" | "video"; poster?: string };
 
