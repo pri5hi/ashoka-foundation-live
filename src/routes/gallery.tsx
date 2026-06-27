@@ -119,6 +119,7 @@ const photos: MediaItem[] = [
   ...udaanPhotos,
   ...hjaMedia,
   ...vasMedia,
+  ...asaMedia,
 
   { src: causeFood, cat: "Food Drives", alt: "Food distribution", type: "image" },
   { src: causeEdu, cat: "Education", alt: "Classroom", type: "image" },
@@ -130,7 +131,7 @@ const photos: MediaItem[] = [
   { src: p3, cat: "Education", alt: "Scholarship recipient", type: "image" },
 ];
 
-const cats: Cat[] = ["All", "UDAAN", "HAR JEEVAN ANMOL", "VASUNDHARA", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
+const cats: Cat[] = ["All", "UDAAN", "ANN SE ASHIRWAD", "HAR JEEVAN ANMOL", "VASUNDHARA", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
 
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
