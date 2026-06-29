@@ -109,18 +109,9 @@ const photos: MediaItem[] = [
   ...hjaMedia,
   ...vasMedia,
   ...asaMedia,
-
-  { src: causeFood, cat: "Food Drives", alt: "Food distribution", type: "image" },
-  { src: causeEdu, cat: "Education", alt: "Classroom", type: "image" },
-  { src: causeHealth, cat: "Medical Camps", alt: "Free health camp", type: "image" },
-  { src: causeWomen, cat: "Volunteers", alt: "Skill training", type: "image" },
-  { src: causeCommunity, cat: "Community", alt: "Cleanliness drive", type: "image" },
-  { src: p1, cat: "Community", alt: "Tree plantation", type: "image" },
-  { src: p2, cat: "Food Drives", alt: "Flood relief", type: "image" },
-  { src: p3, cat: "Education", alt: "Scholarship recipient", type: "image" },
 ];
 
-const cats: Cat[] = ["All", "UDAAN", "ANN SE ASHIRWAD", "HAR JEEVAN ANMOL", "VASUNDHARA", "Food Drives", "Education", "Medical Camps", "Community", "Volunteers"];
+const cats: Cat[] = ["All", "UDAAN", "ANN SE ASHIRWAD", "HAR JEEVAN ANMOL", "VASUNDHARA"];
 
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
