@@ -65,7 +65,7 @@ function Contact() {
             <div className="overflow-hidden rounded-2xl border border-border shadow-soft">
               <iframe
                 title="Office location"
-                src="https://www.google.com/maps?q=Aliganj+Lucknow&output=embed"
+                src="https://www.google.com/maps?q=26.8869814,80.946687&output=embed"
                 className="h-72 w-full" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
