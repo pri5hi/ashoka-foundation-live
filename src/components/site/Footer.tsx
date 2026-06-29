@@ -53,7 +53,7 @@ export function Footer() {
         <div>
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary">Reach Us</h4>
           <ul className="mt-4 space-y-3 text-sm text-foreground/80">
-            <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 text-accent" /> Rukhmini Apartment, 6 Chandra Lok Colony, Aliganj, Lucknow-226024</li>
+            <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 text-accent" /> Rukmani Apartment, 6 Chandra Lok Colony, Aliganj, Lucknow-226024</li>
             <li className="flex gap-2"><Phone className="mt-0.5 h-4 w-4 text-accent" /> <a href="tel:+919250915092" className="hover:text-accent">+91 92509 15092</a></li>
             <li className="flex gap-2"><Mail className="mt-0.5 h-4 w-4 text-accent" /> <a href="mailto:contact@creativeashoka.org" className="hover:text-accent">contact@creativeashoka.org</a></li>
           </ul>
