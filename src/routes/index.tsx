@@ -2,9 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Heart, Sparkles, Users, Quote, ShieldCheck, HandHeart, CheckCircle2 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
 import { initiatives } from "@/data/initiatives";
 
 export const Route = createFileRoute("/")({
