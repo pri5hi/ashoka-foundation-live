@@ -2,9 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Heart, Sparkles, Users, Quote, ShieldCheck, HandHeart, CheckCircle2 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
 import { initiatives } from "@/data/initiatives";
 
 export const Route = createFileRoute("/")({
@@ -58,12 +55,6 @@ function Stat({ value, suffix, label }: { value: number; suffix?: string; label:
   );
 }
 
-
-const projects = [
-  { img: p1, title: "Green Villages Initiative", loc: "Rajasthan", date: "Ongoing", desc: "Planting 10,000 trees with school children to restore native green cover." },
-  { img: p2, title: "Monsoon Flood Relief", loc: "Assam", date: "2024", desc: "Emergency ration, clean water and medical aid for 1,800 displaced families." },
-  { img: p3, title: "Padho Beti Padho Scholarship", loc: "Uttar Pradesh", date: "Ongoing", desc: "Annual scholarships and school kits for 500 first-generation girl students." },
-];
 
 const testimonials = [
   { quote: "When floods took our home, the Foundation team was there within hours. Food, medicine, hope — they restored everything.", name: "Mira Devi", role: "Beneficiary, Assam" },
@@ -152,34 +143,7 @@ function Home() {
       </section>
 
 
-      {/* LATEST PROJECTS */}
-      <section className="bg-secondary/40 section-y">
-        <div className="container-page">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Latest Projects</p>
-              <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-4xl">Real work. Real lives. Real impact.</h2>
-            </div>
-            <Link to="/projects" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-accent">
-              View all projects <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {projects.map((p) => (
-              <article key={p.title} className="hover-lift overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-                <img src={p.img} alt={p.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                    <span>{p.loc}</span><span>•</span><span>{p.date}</span>
-                  </div>
-                  <h3 className="mt-2 font-display text-lg font-semibold text-primary">{p.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* WHY TRUST */}
       <section className="section-y">
