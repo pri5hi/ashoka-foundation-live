@@ -2,14 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHero } from "@/components/site/Layout";
 import { X, Play } from "lucide-react";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
-import causeFood from "@/assets/cause-food.jpg";
-import causeEdu from "@/assets/cause-education.jpg";
-import causeHealth from "@/assets/cause-health.jpg";
-import causeWomen from "@/assets/cause-women.jpg";
-import causeCommunity from "@/assets/cause-community.jpg";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -23,7 +15,7 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-type Cat = "All" | "UDAAN" | "ANN SE ASHIRWAD" | "HAR JEEVAN ANMOL" | "VASUNDHARA" | "Food Drives" | "Education" | "Medical Camps" | "Community" | "Volunteers";
+type Cat = "All" | "UDAAN" | "ANN SE ASHIRWAD" | "HAR JEEVAN ANMOL" | "VASUNDHARA";
 
 type MediaItem = { src: string; cat: Exclude<Cat, "All">; alt: string; type?: "image" | "video"; poster?: string };
 
