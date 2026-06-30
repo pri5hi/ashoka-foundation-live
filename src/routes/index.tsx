@@ -154,7 +154,7 @@ function Home() {
             <p className="mt-4 text-muted-foreground">Every rupee is tracked. Every project is documented. Every beneficiary is real — because trust is the only currency a non-profit truly owns.</p>
             <ul className="mt-6 space-y-3 text-sm">
               {[
-                "Audited financials published every quarter",
+                "Audited financials published annually\n",
                 "80G & 12A certified for tax-exempt donations",
                 "On-ground verification of every project",
                 "Community-led decision making",
