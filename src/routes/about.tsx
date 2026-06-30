@@ -50,13 +50,10 @@ function About() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">OUR STORY</p>
             <h2 className="mt-3 font-display text-3xl font-bold text-primary">From a vision of service to a growing movement of hope.</h2>
             <p className="mt-4 text-foreground/80">
-              Creative Ashoka Foundation was established in Lucknow with a simple yet meaningful vision—to bring people together in the service of humanity. What began as a small initiative driven by compassion has grown into a community of 100+ dedicated volunteers working to create lasting social impact.
+              Creative Ashoka Foundation began in Lucknow with a simple belief—that collective compassion can transform lives. What started as a small initiative has grown into a mission-driven organization powered by 100+ passionate volunteers, working together to create meaningful social impact.
             </p>
             <p className="mt-3 text-foreground/80">
-              Today, our initiatives reach 3+ cities, supporting underprivileged communities through education, food assistance, women empowerment, animal welfare, environmental conservation, and community outreach. Every project is built on the belief that meaningful change begins with collective action and genuine compassion.
-            </p>
-            <p className="mt-3 text-foreground/80">
-              Our journey continues with a commitment to expanding our reach, empowering more lives, and building stronger communities where every individual has the opportunity to live with dignity, hope, and confidence.
+              Today, our work reaches 3+ cities through education, food support, women empowerment, animal welfare, and environmental conservation. Every initiative reflects our commitment to building stronger communities and creating lasting change—one life, one family, and one community at a time.
             </p>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
