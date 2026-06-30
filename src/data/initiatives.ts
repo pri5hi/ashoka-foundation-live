@@ -52,7 +52,7 @@ export const initiatives: Initiative[] = [
     shortDesc:
       "Distributing nutritious meals and essential food supplies to families and individuals in need.",
     description:
-      "ANN SE ASHIRWAD addresses hunger at its root. Through\u00a0 meal drives, ration kit distribution, we serve nutritious food to families, daily-wage workers, the elderly and anyone in crisis. Every meal carries dignity, warmth and the assurance that no one in our community has to sleep hungry.",
+      "ANN SE ASHIRWAD addresses hunger at its root. Through meal drives, ration kit distribution, we serve nutritious food to families, daily-wage workers, the elderly and anyone in crisis. Every meal carries dignity, warmth and the assurance that no one in our community has to sleep hungry.",
     impactGoal:
       "Serve 1,00,000+ nutritious meals annually and supply monthly ration kits to vulnerable families across our service areas.",
     image: annSeAshirwadHeader.url,
