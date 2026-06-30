@@ -58,7 +58,7 @@ function Stat({ value, suffix, label }: { value: number; suffix?: string; label:
 
 const testimonials = [
   { quote: "Being a part of Udaan initiative was truly inspiring. This is not just about education; it is about giving children hope, confidence, and the courage to dream bigger.", name: "Anshika Tiwari", role: "Volunteer, UP" },
-  { quote: "I've seen Creative Ashoka Foundation work quietly but tirelessly for both people and animals. Their efforts through Udaan and other initiatives prove that real change begins with compassion and action. Truly a foundation that inspires hope.", name: "Manish Shah", role: "Volunteer, Delhi" },
+  { quote: "I've seen Creative Ashoka Foundation work quietly but tirelessly for both people and animals. Their efforts through Udaan and other initiatives prove that real change begins with compassion and action. Truly a foundation that inspires hope.", name: "Manish Shah", role: "Advocate High Court, Lucknow" },
   { quote: "The scholarship let me finish school. Today I am a nurse — and I give back to the same village.", name: "Anjali S.", role: "Alumna, UP" },
 ];
 
