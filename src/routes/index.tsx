@@ -57,7 +57,7 @@ function Stat({ value, suffix, label }: { value: number; suffix?: string; label:
 
 
 const testimonials = [
-  { quote: "When floods took our home, the Foundation team was there within hours. Food, medicine, hope — they restored everything.", name: "Mira Devi", role: "Beneficiary, Assam" },
+  { quote: "Being a part of Udaan initiative was truly inspiring. This is not just about education; it is about giving children hope, confidence, and the courage to dream bigger.", name: "Anshika Tiwari", role: "Volunteer, UP" },
   { quote: "Volunteering with Creative Ashoka changed how I see service. Every weekend feels purposeful now.", name: "Rohan Mehta", role: "Volunteer, Delhi" },
   { quote: "The scholarship let me finish school. Today I am a nurse — and I give back to the same village.", name: "Anjali S.", role: "Alumna, UP" },
 ];
