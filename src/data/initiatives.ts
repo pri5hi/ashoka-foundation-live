@@ -28,7 +28,7 @@ export const initiatives: Initiative[] = [
     description:
       "UDAAN is our flagship education initiative dedicated to opening doors of opportunity for children and youth from underprivileged backgrounds. Through learning materials, after-school tuition, mentorship circles and academic guidance, we ensure that no child is held back by circumstance. The program partners with local schools, volunteers and educators to deliver continuous, structured support — from foundational literacy to career counselling.",
     impactGoal:
-      "Empower 5,000+ children with quality education access, mentorship, and the confidence to dream beyond their circumstances.",
+      "Empowering many children with quality education access, mentorship, and the confidence to dream beyond their circumstances.",
     image: udaanHeader.url,
     icon: GraduationCap,
   },
@@ -41,7 +41,7 @@ export const initiatives: Initiative[] = [
     description:
       "SWABHIMAAN — dignity through self-reliance. The initiative offers vocational training, skill support, legal and rights awareness, and confidence-building workshops for women from underserved communities. We partner with trainers, mentors and local enterprises to turn skills into sustainable livelihoods.",
     impactGoal:
-      "Train and empower 2,000+ women with marketable skills, financial literacy and the confidence to lead.",
+      "Train and empower women with marketable skills, financial literacy and the confidence to lead.",
     image: causeWomen,
     icon: Sparkles,
   },
@@ -54,7 +54,7 @@ export const initiatives: Initiative[] = [
     description:
       "ANN SE ASHIRWAD addresses hunger at its root. Through meal drives, ration kit distribution, we serve nutritious food to families, daily-wage workers, the elderly and anyone in crisis. Every meal carries dignity, warmth and the assurance that no one in our community has to sleep hungry.",
     impactGoal:
-      "Serve 1,00,000+ nutritious meals annually and supply monthly ration kits to vulnerable families across our service areas.",
+      "Serve 10,000+ nutritious meals annually and supply ration kits to vulnerable families across our service areas.",
     image: annSeAshirwadHeader.url,
     icon: Utensils,
   },
@@ -80,7 +80,7 @@ export const initiatives: Initiative[] = [
     description:
       "VASUNDHARA is our pledge to the planet. We organise large-scale plantation drives, neighbourhood cleanliness campaigns, awareness workshops in schools and sustainability programs with local resident groups. Every sapling planted and every campaign run is a step toward greener, healthier communities.",
     impactGoal:
-      "Plant 25,000+ trees, run 100+ community cleanliness drives and educate the next generation on sustainable living.",
+      "Planted thousands of trees, ran many community cleanliness drives and educate the next generation on sustainable living.",
     image: vasundharaHeader.url,
     icon: Leaf,
   },
