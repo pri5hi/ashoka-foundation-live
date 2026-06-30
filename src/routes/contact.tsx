@@ -50,7 +50,7 @@ function Contact() {
               <ul className="mt-4 space-y-3 text-sm">
                 <li className="flex gap-3"><MapPin className="mt-0.5 h-4 w-4 text-accent" /> Rukmani Apartment, 6 Chandra Lok Colony, Aliganj, Lucknow-226024</li>
                 <li className="flex gap-3"><Phone className="mt-0.5 h-4 w-4 text-accent" /> <a href="tel:+919250915092" className="hover:text-accent">+91 92509 15092</a></li>
-                <li className="flex gap-3"><Mail className="mt-0.5 h-4 w-4 text-accent" /> <a href="mailto:contact@creativeashoka.org" className="hover:text-accent">contact@creativeashoka.org</a></li>
+                <li className="flex gap-3"><Mail className="mt-0.5 h-4 w-4 text-accent" /> <a href="mailto:info@creativeashoka.org" className="hover:text-accent">info@creativeashoka.org</a></li>
                 <li className="flex gap-3"><Clock className="mt-0.5 h-4 w-4 text-accent" /> Mon – Sat · 10:00 AM – 6:00 PM</li>
               </ul>
               <div className="mt-5 flex items-center gap-3">
