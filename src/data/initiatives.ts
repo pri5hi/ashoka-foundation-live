@@ -39,7 +39,7 @@ export const initiatives: Initiative[] = [
     shortDesc:
       "Skill training, livelihood support and rights awareness empowering women to build dignified, independent lives.",
     description:
-      "SWABHIMAAN — dignity through self-reliance. The initiative offers vocational training, micro-enterprise support, legal and rights awareness, and confidence-building workshops for women from underserved communities. We partner with trainers, mentors and local enterprises to turn skills into sustainable livelihoods.",
+      "SWABHIMAAN — dignity through self-reliance. The initiative offers vocational training, skill support, legal and rights awareness, and confidence-building workshops for women from underserved communities. We partner with trainers, mentors and local enterprises to turn skills into sustainable livelihoods.",
     impactGoal:
       "Train and empower 2,000+ women with marketable skills, financial literacy and the confidence to lead.",
     image: causeWomen,
