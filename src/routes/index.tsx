@@ -99,10 +99,10 @@ function Home() {
       {/* IMPACT STATS */}
       <section className="border-y border-border bg-[color:var(--cream)]">
         <div className="container-page grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
-          <Stat value={5000} label="Lives Impacted" />
+          <Stat value={1200} label="Lives Impacted" />
           <Stat value={50} label="Community Projects" />
           <Stat value={100} label="Active Volunteers" />
-          <Stat value={12} label="Cities Reached" />
+          <Stat value={3} label="Cities Reached" />
         </div>
       </section>
 
