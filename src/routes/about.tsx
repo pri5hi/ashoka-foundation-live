@@ -41,7 +41,7 @@ function About() {
       <PageHero
         eyebrow="About Us"
         title="A movement of ordinary Indians doing extraordinary things."
-        subtitle="Creative Ashoka Foundation began in 2018 with a simple belief — that no child should sleep hungry, no parent should choose between medicine and meals, and no woman should be invisible."
+        subtitle="Creative Ashoka Foundation began with a simple belief — that no child should sleep hungry, no parent should choose between medicine and meals, and no woman should be invisible."
       />
 
       <section className="section-y">
