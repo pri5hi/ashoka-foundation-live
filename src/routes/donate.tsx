@@ -36,7 +36,7 @@ function Donate() {
                 ["Bank Name", "Axis Bank"],
                 ["Account Number", "925020022668565"],
                 ["IFSC Code", "UTIB0005205"],
-                ["Branch", "Purani Basti"],
+                ["Branch", "Purani Bazar Basti"],
               ].map(([k, v]) => (
                 <div key={k} className="flex items-center justify-between gap-3 rounded-md bg-secondary/60 px-3 py-2">
                   <div>
