@@ -59,7 +59,7 @@ function Stat({ value, suffix, label }: { value: number; suffix?: string; label:
 const testimonials = [
   { quote: "Being a part of Udaan initiative was truly inspiring. This is not just about education; it is about giving children hope, confidence, and the courage to dream bigger.", name: "Anshika Tiwari", role: "Volunteer, UP" },
   { quote: "I've seen Creative Ashoka Foundation work quietly but tirelessly for both people and animals. Their efforts through Udaan and other initiatives prove that real change begins with compassion and action. Truly a foundation that inspires hope.", name: "Manish Shah", role: "Advocate High Court, Lucknow" },
-  { quote: "Creative Ashoka Foundation is one of those rare organizations that genuinely cares. From educating children to helping animals, their work reflects true compassion and creates a real impact in the community.", name: "Anjali S.", role: "Alumna, UP" },
+  { quote: "Creative Ashoka Foundation is one of those rare organizations that genuinely cares. From educating children to helping animals, their work reflects true compassion and creates a real impact in the community.", name: "Anjali S.", role: "Varanasi, UP" },
 ];
 
 function Home() {
