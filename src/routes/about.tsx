@@ -47,13 +47,16 @@ function About() {
       <section className="section-y">
         <div className="container-page grid gap-12 lg:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Our Story</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-primary">From one community kitchen to a nationwide movement.</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">OUR STORY</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-primary">From a vision of service to a growing movement of hope.</h2>
             <p className="mt-4 text-foreground/80">
-              What started as a few friends serving warm meals outside a Delhi hospital has grown into a registered foundation working across 12 cities. Today we run scholarships, free clinics, women's skill centres and emergency relief — but our roots remain the same: showing up, listening, and serving.
+              Creative Ashoka Foundation was established in Lucknow with a simple yet meaningful vision—to bring people together in the service of humanity. What began as a small initiative driven by compassion has grown into a community of 100+ dedicated volunteers working to create lasting social impact.
             </p>
             <p className="mt-3 text-foreground/80">
-              We are powered by a network of 100+ volunteers, hundreds of monthly donors and dozens of local partners who believe that real change is built block by block, not headline by headline.
+              Today, our initiatives reach 3+ cities, supporting underprivileged communities through education, food assistance, women empowerment, animal welfare, environmental conservation, and community outreach. Every project is built on the belief that meaningful change begins with collective action and genuine compassion.
+            </p>
+            <p className="mt-3 text-foreground/80">
+              Our journey continues with a commitment to expanding our reach, empowering more lives, and building stronger communities where every individual has the opportunity to live with dignity, hope, and confidence.
             </p>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
