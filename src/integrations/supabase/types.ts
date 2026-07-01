@@ -16,7 +16,6 @@ export type Database = {
     Tables: {
       blogs: {
         Row: {
-          author_id: string | null
           author_name: string | null
           category: string | null
           content: string | null
@@ -24,7 +23,7 @@ export type Database = {
           created_at: string
           excerpt: string | null
           id: string
-          is_published: boolean
+          is_published: boolean | null
           published_at: string | null
           seo_description: string | null
           seo_title: string | null
@@ -33,7 +32,6 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          author_id?: string | null
           author_name?: string | null
           category?: string | null
           content?: string | null
@@ -41,7 +39,7 @@ export type Database = {
           created_at?: string
           excerpt?: string | null
           id?: string
-          is_published?: boolean
+          is_published?: boolean | null
           published_at?: string | null
           seo_description?: string | null
           seo_title?: string | null
@@ -50,7 +48,6 @@ export type Database = {
           updated_at?: string
         }
         Update: {
-          author_id?: string | null
           author_name?: string | null
           category?: string | null
           content?: string | null
@@ -58,7 +55,7 @@ export type Database = {
           created_at?: string
           excerpt?: string | null
           id?: string
-          is_published?: boolean
+          is_published?: boolean | null
           published_at?: string | null
           seo_description?: string | null
           seo_title?: string | null
@@ -76,8 +73,9 @@ export type Database = {
           message: string
           name: string
           phone: string | null
-          status: string
+          status: string | null
           subject: string | null
+          updated_at: string
         }
         Insert: {
           created_at?: string
@@ -86,8 +84,9 @@ export type Database = {
           message: string
           name: string
           phone?: string | null
-          status?: string
+          status?: string | null
           subject?: string | null
+          updated_at?: string
         }
         Update: {
           created_at?: string
@@ -96,8 +95,9 @@ export type Database = {
           message?: string
           name?: string
           phone?: string | null
-          status?: string
+          status?: string | null
           subject?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -106,46 +106,46 @@ export type Database = {
           amount: number
           cause: string | null
           created_at: string
-          currency: string
           donor_name: string
           email: string
           id: string
-          notes: string | null
+          message: string | null
           pan: string | null
           payment_method: string | null
           phone: string | null
-          status: string
-          transaction_id: string | null
+          reference_id: string | null
+          status: string | null
+          updated_at: string
         }
         Insert: {
           amount: number
           cause?: string | null
           created_at?: string
-          currency?: string
           donor_name: string
           email: string
           id?: string
-          notes?: string | null
+          message?: string | null
           pan?: string | null
           payment_method?: string | null
           phone?: string | null
-          status?: string
-          transaction_id?: string | null
+          reference_id?: string | null
+          status?: string | null
+          updated_at?: string
         }
         Update: {
           amount?: number
           cause?: string | null
           created_at?: string
-          currency?: string
           donor_name?: string
           email?: string
           id?: string
-          notes?: string | null
+          message?: string | null
           pan?: string | null
           payment_method?: string | null
           phone?: string | null
-          status?: string
-          transaction_id?: string | null
+          reference_id?: string | null
+          status?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -157,10 +157,11 @@ export type Database = {
           display_order: number | null
           id: string
           image_url: string
-          is_featured: boolean
-          is_published: boolean
-          media_type: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          media_type: string | null
           title: string | null
+          updated_at: string
         }
         Insert: {
           caption?: string | null
@@ -169,10 +170,11 @@ export type Database = {
           display_order?: number | null
           id?: string
           image_url: string
-          is_featured?: boolean
-          is_published?: boolean
-          media_type?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          media_type?: string | null
           title?: string | null
+          updated_at?: string
         }
         Update: {
           caption?: string | null
@@ -181,16 +183,19 @@ export type Database = {
           display_order?: number | null
           id?: string
           image_url?: string
-          is_featured?: boolean
-          is_published?: boolean
-          media_type?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          media_type?: string | null
           title?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
       impact_stats: {
         Row: {
+          created_at: string
           display_order: number | null
+          id: string
           key: string
           label: string
           suffix: string | null
@@ -198,7 +203,9 @@ export type Database = {
           value: number
         }
         Insert: {
+          created_at?: string
           display_order?: number | null
+          id?: string
           key: string
           label: string
           suffix?: string | null
@@ -206,7 +213,9 @@ export type Database = {
           value?: number
         }
         Update: {
+          created_at?: string
           display_order?: number | null
+          id?: string
           key?: string
           label?: string
           suffix?: string | null
@@ -220,21 +229,21 @@ export type Database = {
           created_at: string
           email: string
           id: string
-          is_active: boolean
+          is_active: boolean | null
           name: string | null
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
-          is_active?: boolean
+          is_active?: boolean | null
           name?: string | null
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
-          is_active?: boolean
+          is_active?: boolean | null
           name?: string | null
         }
         Relationships: []
@@ -246,16 +255,14 @@ export type Database = {
           created_at: string
           description: string | null
           end_date: string | null
-          gallery_images: Json | null
           id: string
           image_url: string | null
-          impact_stats: Json | null
-          is_published: boolean
+          is_published: boolean | null
           location: string | null
           objectives: string | null
           slug: string
           start_date: string | null
-          status: string
+          status: string | null
           summary: string | null
           title: string
           updated_at: string
@@ -266,16 +273,14 @@ export type Database = {
           created_at?: string
           description?: string | null
           end_date?: string | null
-          gallery_images?: Json | null
           id?: string
           image_url?: string | null
-          impact_stats?: Json | null
-          is_published?: boolean
+          is_published?: boolean | null
           location?: string | null
           objectives?: string | null
           slug: string
           start_date?: string | null
-          status?: string
+          status?: string | null
           summary?: string | null
           title: string
           updated_at?: string
@@ -286,16 +291,14 @@ export type Database = {
           created_at?: string
           description?: string | null
           end_date?: string | null
-          gallery_images?: Json | null
           id?: string
           image_url?: string | null
-          impact_stats?: Json | null
-          is_published?: boolean
+          is_published?: boolean | null
           location?: string | null
           objectives?: string | null
           slug?: string
           start_date?: string | null
-          status?: string
+          status?: string | null
           summary?: string | null
           title?: string
           updated_at?: string
@@ -304,16 +307,19 @@ export type Database = {
       }
       site_settings: {
         Row: {
+          id: string
           key: string
           updated_at: string
           value: Json
         }
         Insert: {
+          id?: string
           key: string
           updated_at?: string
           value?: Json
         }
         Update: {
+          id?: string
           key?: string
           updated_at?: string
           value?: Json
@@ -323,10 +329,9 @@ export type Database = {
       testimonials: {
         Row: {
           created_at: string
-          display_order: number | null
           id: string
-          is_featured: boolean
-          is_published: boolean
+          is_featured: boolean | null
+          is_published: boolean | null
           location: string | null
           message: string
           name: string
@@ -337,10 +342,9 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          display_order?: number | null
           id?: string
-          is_featured?: boolean
-          is_published?: boolean
+          is_featured?: boolean | null
+          is_published?: boolean | null
           location?: string | null
           message: string
           name: string
@@ -351,10 +355,9 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          display_order?: number | null
           id?: string
-          is_featured?: boolean
-          is_published?: boolean
+          is_featured?: boolean | null
+          is_published?: boolean | null
           location?: string | null
           message?: string
           name?: string
@@ -397,7 +400,8 @@ export type Database = {
           name: string
           phone: string
           skills: string | null
-          status: string
+          status: string | null
+          updated_at: string
         }
         Insert: {
           availability?: string | null
@@ -409,7 +413,8 @@ export type Database = {
           name: string
           phone: string
           skills?: string | null
-          status?: string
+          status?: string | null
+          updated_at?: string
         }
         Update: {
           availability?: string | null
@@ -421,7 +426,8 @@ export type Database = {
           name?: string
           phone?: string
           skills?: string | null
-          status?: string
+          status?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -439,7 +445,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "editor" | "user"
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -567,7 +573,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "editor", "user"],
+      app_role: ["admin", "moderator", "user"],
     },
   },
 } as const
