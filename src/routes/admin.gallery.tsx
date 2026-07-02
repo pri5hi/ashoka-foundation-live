@@ -14,7 +14,7 @@ import { uploadMedia } from "@/lib/admin-utils";
 
 export const Route = createFileRoute("/admin/gallery")({ component: GalleryAdmin });
 
-const CATEGORIES = ["Food Drives", "Education Programs", "Medical Camps", "Community Events", "Volunteer Activities", "Women Empowerment", "Relief Work"];
+const CATEGORIES = ["UDAAN", "SWABHIMAAN", "ANN SE ASHIRWAD", "HAR JEEVAN ANMOL", "VASUNDHARA"];
 
 function GalleryAdmin() {
   const qc = useQueryClient();
