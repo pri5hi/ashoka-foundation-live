@@ -1,13 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { PageHero } from "@/components/site/Layout";
 import { X, Play } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
       { title: "Gallery — Creative Ashoka Foundation" },
-      { name: "description", content: "Photo and video gallery from our food drives, education programs, medical camps and community events." },
+      { name: "description", content: "Photo and video gallery from our flagship initiatives across India." },
       { property: "og:title", content: "Gallery — Moments of Impact" },
       { property: "og:description", content: "Photographs and videos from our on-ground work across India." },
     ],
@@ -15,107 +17,40 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-type Cat = "All" | "UDAAN" | "ANN SE ASHIRWAD" | "HAR JEEVAN ANMOL" | "VASUNDHARA";
+type Cat = "All" | "UDAAN" | "SWABHIMAAN" | "ANN SE ASHIRWAD" | "HAR JEEVAN ANMOL" | "VASUNDHARA";
 
-type MediaItem = { src: string; cat: Exclude<Cat, "All">; alt: string; type?: "image" | "video"; poster?: string };
+type MediaItem = {
+  src: string;
+  cat: Exclude<Cat, "All">;
+  alt: string;
+  type: "image" | "video";
+};
 
-const udaanModules = import.meta.glob("@/assets/udaan/Udaan*.jpg.asset.json", {
-  eager: true,
-}) as Record<string, { default: { url: string; original_filename: string } }>;
-
-const udaanPhotos: MediaItem[] = Object.values(udaanModules)
-  .map((m) => m.default)
-  .filter((a) => !/Udaan_Header/i.test(a.original_filename))
-  .sort((a, b) => {
-    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
-    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
-    return na - nb;
-  })
-  .map((a) => ({ src: a.url, cat: "UDAAN" as const, alt: `UDAAN — ${a.original_filename.replace(/\.[^.]+$/, "")}`, type: "image" }));
-
-const hjaModules = import.meta.glob("@/assets/har-jeevan-anmol/*.asset.json", {
-  eager: true,
-}) as Record<string, { default: { url: string; original_filename: string } }>;
-
-const hjaHeaderUrl = Object.values(hjaModules).find((m) => /Header/i.test(m.default.original_filename))?.default.url;
-
-const hjaMedia: MediaItem[] = Object.values(hjaModules)
-  .map((m) => m.default)
-  .sort((a, b) => {
-    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
-    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
-    return na - nb;
-  })
-  .map((a) => {
-    const isVideo = /\.(mp4|webm|mov)$/i.test(a.original_filename);
-    return {
-      src: a.url,
-      cat: "HAR JEEVAN ANMOL" as const,
-      alt: `HAR JEEVAN ANMOL — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
-      type: isVideo ? ("video" as const) : ("image" as const),
-    };
-  });
-
-const vasModules = import.meta.glob("@/assets/vasundhara/*.asset.json", {
-  eager: true,
-}) as Record<string, { default: { url: string; original_filename: string } }>;
-
-const vasHeaderUrl = Object.values(vasModules).find((m) => /Header/i.test(m.default.original_filename))?.default.url;
-
-const vasMedia: MediaItem[] = Object.values(vasModules)
-  .map((m) => m.default)
-  .filter((a) => !/Header/i.test(a.original_filename))
-  .sort((a, b) => {
-    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
-    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
-    return na - nb;
-  })
-  .map((a) => {
-    const isVideo = /\.(mp4|webm|mov)$/i.test(a.original_filename);
-    return {
-      src: a.url,
-      cat: "VASUNDHARA" as const,
-      alt: `VASUNDHARA — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
-      type: isVideo ? ("video" as const) : ("image" as const),
-    };
-  });
-
-const asaModules = import.meta.glob("@/assets/ann-se-ashirwad/*.asset.json", {
-  eager: true,
-}) as Record<string, { default: { url: string; original_filename: string } }>;
-
-const asaHeaderUrl = Object.values(asaModules).find((m) => /Header/i.test(m.default.original_filename))?.default.url;
-
-const asaMedia: MediaItem[] = Object.values(asaModules)
-  .map((m) => m.default)
-  .filter((a) => !/Header/i.test(a.original_filename))
-  .sort((a, b) => {
-    const na = parseInt(a.original_filename.replace(/\D/g, ""), 10) || 0;
-    const nb = parseInt(b.original_filename.replace(/\D/g, ""), 10) || 0;
-    return na - nb;
-  })
-  .map((a) => {
-    const isVideo = /\.(mp4|webm|mov)$/i.test(a.original_filename);
-    return {
-      src: a.url,
-      cat: "ANN SE ASHIRWAD" as const,
-      alt: `ANN SE ASHIRWAD — ${a.original_filename.replace(/\.[^.]+$/, "")}`,
-      type: isVideo ? ("video" as const) : ("image" as const),
-    };
-  });
-
-const photos: MediaItem[] = [
-  ...udaanPhotos,
-  ...hjaMedia,
-  ...vasMedia,
-  ...asaMedia,
-];
-
-const cats: Cat[] = ["All", "UDAAN", "ANN SE ASHIRWAD", "HAR JEEVAN ANMOL", "VASUNDHARA"];
+const cats: Cat[] = ["All", "UDAAN", "SWABHIMAAN", "ANN SE ASHIRWAD", "HAR JEEVAN ANMOL", "VASUNDHARA"];
 
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
+
+  const { data: photos = [], isLoading } = useQuery({
+    queryKey: ["public-gallery"],
+    queryFn: async (): Promise<MediaItem[]> => {
+      const { data, error } = await supabase
+        .from("gallery")
+        .select("image_url, category, title, media_type, display_order, created_at")
+        .eq("is_published", true)
+        .order("display_order", { ascending: true })
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data || []).map((r) => ({
+        src: r.image_url,
+        cat: (r.category || "UDAAN") as Exclude<Cat, "All">,
+        alt: r.title || r.category || "Gallery media",
+        type: r.media_type === "video" ? "video" : "image",
+      }));
+    },
+  });
+
   const list = f === "All" ? photos : photos.filter((p) => p.cat === f);
 
   return (
@@ -129,28 +64,31 @@ function Gallery() {
             ))}
           </div>
 
-          <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid">
-            {list.map((p, i) => (
-              <button key={i} onClick={() => setLightbox(p)} className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-                {p.type === "video" ? (
-                  <>
-                    {p.poster ? (
-                      <img src={p.poster} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
-                    ) : (
+          {isLoading ? (
+            <div className="mt-12 text-center text-muted-foreground">Loading gallery…</div>
+          ) : (
+            <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid">
+              {list.map((p, i) => (
+                <button key={i} onClick={() => setLightbox(p)} className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+                  {p.type === "video" ? (
+                    <>
                       <video src={p.src} preload="metadata" muted playsInline className="w-full" />
-                    )}
-                    <div className="pointer-events-none absolute inset-0 grid place-items-center bg-black/20">
-                      <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevated transition group-hover:scale-110">
-                        <Play className="h-6 w-6 fill-current" />
+                      <div className="pointer-events-none absolute inset-0 grid place-items-center bg-black/20">
+                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevated transition group-hover:scale-110">
+                          <Play className="h-6 w-6 fill-current" />
+                        </div>
                       </div>
-                    </div>
-                  </>
-                ) : (
-                  <img src={p.src} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
-                )}
-              </button>
-            ))}
-          </div>
+                    </>
+                  ) : (
+                    <img src={p.src} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+                  )}
+                </button>
+              ))}
+              {!list.length && (
+                <div className="col-span-full text-center text-muted-foreground">No media in this category yet.</div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
