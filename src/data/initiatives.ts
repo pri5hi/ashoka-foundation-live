@@ -1,6 +1,6 @@
 import { GraduationCap, Sparkles, Utensils, PawPrint, Leaf, type LucideIcon } from "lucide-react";
 import causeWomen from "@/assets/cause-women.jpg";
-import causeFood from "@/assets/cause-food.jpg";
+
 const udaanHeader = { url: "/images/projects/Udaan_Header.jpg" };
 const hjaHeader = { url: "/images/projects/HarJeevanAnmol_Header.jpg" };
 const vasundharaHeader = { url: "/images/projects/Vasundhara_Header.jpg" };
