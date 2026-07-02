@@ -1,10 +1,10 @@
 import { GraduationCap, Sparkles, Utensils, PawPrint, Leaf, type LucideIcon } from "lucide-react";
 import causeWomen from "@/assets/cause-women.jpg";
-import causeFood from "@/assets/cause-food.jpg";
-import udaanHeader from "@/assets/udaan/Udaan_Header.jpg.asset.json";
-import hjaHeader from "@/assets/har-jeevan-anmol/HarJeevanAnmol_Header.jpg.asset.json";
-import vasundharaHeader from "@/assets/vasundhara/Vasundhara_Header.jpg.asset.json";
-import annSeAshirwadHeader from "@/assets/ann-se-ashirwad/AnnSeAashirvaad_Header.jpg.asset.json";
+
+const udaanHeader = { url: "/images/projects/Udaan_Header.jpg" };
+const hjaHeader = { url: "/images/projects/HarJeevanAnmol_Header.jpg" };
+const vasundharaHeader = { url: "/images/projects/Vasundhara_Header.jpg" };
+const annSeAshirwadHeader = { url: "/images/projects/AnnSeAashirvaad_Header.jpg" };
 
 
 export type Initiative = {
