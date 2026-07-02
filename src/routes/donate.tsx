@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/Layout";
 import { toast } from "sonner";
 import { Building2, QrCode, Copy } from "lucide-react";
-import qrAsset from "@/assets/caf-upi-qr.jpeg.asset.json";
+const qrAsset = { url: "/images/caf-upi-qr.jpeg" };
 
 export const Route = createFileRoute("/donate")({
   head: () => ({
