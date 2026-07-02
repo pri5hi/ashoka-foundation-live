@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/Layout";
 import { Heart, Eye, Compass, Users, Shield, HandHeart, Sparkles } from "lucide-react";
-import dibyanshAsset from "@/assets/dibyansh-rao.jpg.asset.json";
-import saurabhAsset from "@/assets/saurabh-singh.jpg.asset.json";
-import animeshAsset from "@/assets/animesh-mishra.png.asset.json";
-import prashantAsset from "@/assets/prashant-pandey.jpg.asset.json";
+const dibyanshAsset = { url: "/images/leadership/dibyansh-rao.jpg" };
+const saurabhAsset = { url: "/images/leadership/saurabh-singh.jpg" };
+const animeshAsset = { url: "/images/leadership/animesh-mishra.png" };
+const prashantAsset = { url: "/images/leadership/prashant-pandey.jpg" };
 
 
 export const Route = createFileRoute("/about")({
