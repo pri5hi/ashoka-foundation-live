@@ -28,12 +28,50 @@ type MediaItem = {
 
 const cats: Cat[] = ["All", "UDAAN", "SWABHIMAAN", "ANN SE ASHIRWAD", "HAR JEEVAN ANMOL", "VASUNDHARA"];
 
+const localGalleryMedia: MediaItem[] = [
+  { src: "/images/gallery/Vasundhara1.jpg", cat: "VASUNDHARA", alt: "Vasundhara1", type: "image" },
+  { src: "/images/gallery/Udaan1.jpg", cat: "UDAAN", alt: "Udaan1", type: "image" },
+  { src: "/images/gallery/AnnSeAashirvaad1.jpg", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad1", type: "image" },
+  { src: "/images/gallery/Udaan2.jpg", cat: "UDAAN", alt: "Udaan2", type: "image" },
+  { src: "/images/gallery/AnnSeAashirvaad2.jpg", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad2", type: "image" },
+  { src: "/images/gallery/Vasundhara2.jpg", cat: "VASUNDHARA", alt: "Vasundhara2", type: "image" },
+  { src: "/videos/projects/HarJeevanAnmol2.mp4", cat: "HAR JEEVAN ANMOL", alt: "HarJeevanAnmol2", type: "video" },
+  { src: "/videos/projects/AnnSeAashirvaad3.mp4", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad3", type: "video" },
+  { src: "/images/gallery/Vasundhara3.jpg", cat: "VASUNDHARA", alt: "Vasundhara3", type: "image" },
+  { src: "/images/gallery/Udaan3.jpg", cat: "UDAAN", alt: "Udaan3", type: "image" },
+  { src: "/videos/projects/HarJeevanAnmol3.mp4", cat: "HAR JEEVAN ANMOL", alt: "HarJeevanAnmol3", type: "video" },
+  { src: "/images/gallery/Vasundhara4.jpg", cat: "VASUNDHARA", alt: "Vasundhara4", type: "image" },
+  { src: "/videos/projects/AnnSeAashirvaad4.mp4", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad4", type: "video" },
+  { src: "/images/gallery/Udaan4.jpg", cat: "UDAAN", alt: "Udaan4", type: "image" },
+  { src: "/videos/projects/Vasundhara5.mp4", cat: "VASUNDHARA", alt: "Vasundhara5", type: "video" },
+  { src: "/images/gallery/Udaan5.jpg", cat: "UDAAN", alt: "Udaan5", type: "image" },
+  { src: "/images/gallery/Udaan6.jpg", cat: "UDAAN", alt: "Udaan6", type: "image" },
+  { src: "/videos/projects/AnnSeAashirvaad7.mp4", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad7", type: "video" },
+  { src: "/images/gallery/Udaan7.jpg", cat: "UDAAN", alt: "Udaan7", type: "image" },
+  { src: "/images/gallery/Udaan8.jpg", cat: "UDAAN", alt: "Udaan8", type: "image" },
+  { src: "/images/gallery/Udaan9.jpg", cat: "UDAAN", alt: "Udaan9", type: "image" },
+  { src: "/videos/projects/AnnSeAashirvaad10.mp4", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad10", type: "video" },
+  { src: "/images/gallery/Udaan10.jpg", cat: "UDAAN", alt: "Udaan10", type: "image" },
+  { src: "/videos/projects/AnnSeAashirvaad11.mp4", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad11", type: "video" },
+  { src: "/images/gallery/Udaan11.jpg", cat: "UDAAN", alt: "Udaan11", type: "image" },
+  { src: "/videos/projects/AnnSeAashirvaad12.mp4", cat: "ANN SE ASHIRWAD", alt: "AnnSeAashirvaad12", type: "video" },
+  { src: "/images/gallery/Udaan12.jpg", cat: "UDAAN", alt: "Udaan12", type: "image" },
+  { src: "/images/gallery/Udaan13.jpg", cat: "UDAAN", alt: "Udaan13", type: "image" },
+  { src: "/images/gallery/Udaan14.jpg", cat: "UDAAN", alt: "Udaan14", type: "image" },
+  { src: "/images/gallery/Udaan15.jpg", cat: "UDAAN", alt: "Udaan15", type: "image" },
+  { src: "/images/gallery/Udaan16.jpg", cat: "UDAAN", alt: "Udaan16", type: "image" },
+  { src: "/images/gallery/Udaan17.jpg", cat: "UDAAN", alt: "Udaan17", type: "image" },
+  { src: "/images/gallery/Udaan18.jpg", cat: "UDAAN", alt: "Udaan18", type: "image" },
+  { src: "/images/gallery/Udaan19.jpg", cat: "UDAAN", alt: "Udaan19", type: "image" },
+];
+
 function Gallery() {
   const [f, setF] = useState<Cat>("All");
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
 
   const { data: photos = [], isLoading } = useQuery({
     queryKey: ["public-gallery"],
+    initialData: localGalleryMedia,
     queryFn: async (): Promise<MediaItem[]> => {
       const { data, error } = await supabase
         .from("gallery")
@@ -41,8 +79,8 @@ function Gallery() {
         .eq("is_published", true)
         .order("display_order", { ascending: true })
         .order("created_at", { ascending: false });
-      if (error) throw error;
-      return (data || []).map((r) => ({
+      if (error || !data?.length) return localGalleryMedia;
+      return data.map((r) => ({
         src: r.image_url,
         cat: (r.category || "UDAAN") as Exclude<Cat, "All">,
         alt: r.title || r.category || "Gallery media",
