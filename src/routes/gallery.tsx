@@ -112,12 +112,12 @@ function Gallery() {
           {isLoading ? (
             <div className="mt-12 text-center text-muted-foreground">Loading gallery…</div>
           ) : (
-            <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid">
+            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {list.map((p, i) => (
-                <button key={i} onClick={() => setLightbox(p)} className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+                <button key={i} onClick={() => setLightbox(p)} className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card shadow-soft aspect-[4/3]">
                   {p.type === "video" ? (
                     <>
-                      <video src={p.src} preload="metadata" muted playsInline className="w-full" />
+                      <video src={p.src} preload="metadata" muted playsInline className="h-full w-full object-cover" />
                       <div className="pointer-events-none absolute inset-0 grid place-items-center bg-black/20">
                         <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevated transition group-hover:scale-110">
                           <Play className="h-6 w-6 fill-current" />
@@ -125,7 +125,7 @@ function Gallery() {
                       </div>
                     </>
                   ) : (
-                    <img src={p.src} alt={p.alt} loading="lazy" className="w-full transition-transform duration-500 group-hover:scale-105" />
+                    <img src={p.src} alt={p.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   )}
                 </button>
               ))}
