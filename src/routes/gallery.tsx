@@ -79,13 +79,20 @@ function Gallery() {
         .eq("is_published", true)
         .order("display_order", { ascending: true })
         .order("created_at", { ascending: false });
-      if (error || !data?.length) return localGalleryMedia;
-      return data.map((r) => ({
+      if (error) return localGalleryMedia;
+      const remote: MediaItem[] = (data || []).map((r) => ({
         src: r.image_url,
         cat: (r.category || "UDAAN") as Exclude<Cat, "All">,
         alt: r.title || r.category || "Gallery media",
         type: r.media_type === "video" ? "video" : "image",
       }));
+      // Merge admin-uploaded items with the built-in local gallery, dedupe by src.
+      const seen = new Set<string>();
+      return [...remote, ...localGalleryMedia].filter((m) => {
+        if (seen.has(m.src)) return false;
+        seen.add(m.src);
+        return true;
+      });
     },
   });
 
