@@ -11,8 +11,14 @@ export async function uploadMedia(file: File, folder = "uploads"): Promise<strin
     toast.error("Upload failed: " + error.message);
     return null;
   }
-  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
-  return data.publicUrl;
+  // Bucket is private (workspace blocks public buckets), so mint a long-lived signed URL.
+  const TEN_YEARS = 60 * 60 * 24 * 365 * 10;
+  const { data: signed, error: signErr } = await supabase.storage.from(BUCKET).createSignedUrl(path, TEN_YEARS);
+  if (signErr || !signed?.signedUrl) {
+    toast.error("Could not generate media URL: " + (signErr?.message || "unknown"));
+    return null;
+  }
+  return signed.signedUrl;
 }
 
 export function downloadCSV(rows: Record<string, any>[], filename: string) {
