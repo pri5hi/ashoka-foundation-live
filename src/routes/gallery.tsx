@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { PageHero } from "@/components/site/Layout";
-import { X, Play } from "lucide-react";
+import { X, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/gallery")({
@@ -97,6 +97,19 @@ function Gallery() {
   });
 
   const list = f === "All" ? photos : photos.filter((p) => p.cat === f);
+  const activeIndex = lightbox ? list.findIndex((m) => m.src === lightbox.src) : -1;
+  const goPrev = () => {
+    if (!lightbox) return;
+    const idx = list.findIndex((m) => m.src === lightbox.src);
+    const prev = idx > 0 ? list[idx - 1] : list[list.length - 1];
+    setLightbox(prev);
+  };
+  const goNext = () => {
+    if (!lightbox) return;
+    const idx = list.findIndex((m) => m.src === lightbox.src);
+    const next = idx < list.length - 1 ? list[idx + 1] : list[0];
+    setLightbox(next);
+  };
 
   return (
     <>
@@ -139,11 +152,24 @@ function Gallery() {
 
       {lightbox && (
         <div onClick={() => setLightbox(null)} role="dialog" aria-modal className="fixed inset-0 z-[60] grid place-items-center bg-black/85 p-4">
-          <button aria-label="Close" className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-foreground"><X className="h-5 w-5" /></button>
+          <button aria-label="Close" className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-foreground z-10"><X className="h-5 w-5" /></button>
+          {list.length > 1 && (
+            <>
+              <button aria-label="Previous" onClick={(e) => { e.stopPropagation(); goPrev(); }} className="absolute left-2 top-1/2 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-foreground shadow-elevated transition hover:bg-white z-10">
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button aria-label="Next" onClick={(e) => { e.stopPropagation(); goNext(); }} className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-foreground shadow-elevated transition hover:bg-white z-10">
+                <ChevronRight className="h-6 w-6" />
+              </button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-1 text-sm text-white z-10">
+                {activeIndex + 1} / {list.length}
+              </div>
+            </>
+          )}
           {lightbox.type === "video" ? (
-            <video src={lightbox.src} controls autoPlay playsInline onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated bg-black" />
+            <video key={lightbox.src} src={lightbox.src} controls autoPlay playsInline onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated bg-black" />
           ) : (
-            <img src={lightbox.src} alt={lightbox.alt} onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated" />
+            <img key={lightbox.src} src={lightbox.src} alt={lightbox.alt} onClick={(e) => e.stopPropagation()} className="max-h-[88vh] max-w-full rounded-lg shadow-elevated" />
           )}
         </div>
       )}
