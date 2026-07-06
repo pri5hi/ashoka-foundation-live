@@ -97,6 +97,19 @@ function Gallery() {
   });
 
   const list = f === "All" ? photos : photos.filter((p) => p.cat === f);
+  const activeIndex = lightbox ? list.findIndex((m) => m.src === lightbox.src) : -1;
+  const goPrev = () => {
+    if (!lightbox) return;
+    const idx = list.findIndex((m) => m.src === lightbox.src);
+    const prev = idx > 0 ? list[idx - 1] : list[list.length - 1];
+    setLightbox(prev);
+  };
+  const goNext = () => {
+    if (!lightbox) return;
+    const idx = list.findIndex((m) => m.src === lightbox.src);
+    const next = idx < list.length - 1 ? list[idx + 1] : list[0];
+    setLightbox(next);
+  };
 
   return (
     <>
