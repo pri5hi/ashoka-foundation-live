@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageHero } from "@/components/site/Layout";
 import { X, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { resolveMediaUrls } from "@/lib/admin-utils";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
