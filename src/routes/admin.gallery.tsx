@@ -115,9 +115,10 @@ function GalleryAdmin() {
         {visible.map((r: any) => (
           <Card key={r.id} className="overflow-hidden">
             {r.media_type === "video" ? (
-              <video src={r.image_url} className="h-40 w-full object-cover" controls />
+              <video src={r.display_url || r.image_url} className="h-40 w-full object-cover" controls />
             ) : (
-              <img src={r.image_url} alt={r.title || ""} className="h-40 w-full object-cover" />
+              <img src={r.display_url || r.image_url} alt={r.title || ""} className="h-40 w-full object-cover" />
+
             )}
             <div className="p-3 space-y-2">
               <div className="text-xs text-muted-foreground">{r.category}</div>
