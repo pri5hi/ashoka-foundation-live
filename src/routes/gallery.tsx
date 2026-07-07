@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageHero } from "@/components/site/Layout";
 import { X, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { resolveMediaUrls } from "@/lib/admin-utils";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -72,6 +73,7 @@ function Gallery() {
   const { data: photos = [], isLoading } = useQuery({
     queryKey: ["public-gallery"],
     initialData: localGalleryMedia,
+    staleTime: 30_000,
     queryFn: async (): Promise<MediaItem[]> => {
       const { data, error } = await supabase
         .from("gallery")
@@ -80,12 +82,15 @@ function Gallery() {
         .order("display_order", { ascending: true })
         .order("created_at", { ascending: false });
       if (error) return localGalleryMedia;
-      const remote: MediaItem[] = (data || []).map((r) => ({
-        src: r.image_url,
-        cat: (r.category || "UDAAN") as Exclude<Cat, "All">,
-        alt: r.title || r.category || "Gallery media",
-        type: r.media_type === "video" ? "video" : "image",
-      }));
+      const urlMap = await resolveMediaUrls((data || []).map((r) => r.image_url).filter(Boolean));
+      const remote: MediaItem[] = (data || [])
+        .map((r) => ({
+          src: urlMap[r.image_url] || r.image_url,
+          cat: (r.category || "UDAAN") as Exclude<Cat, "All">,
+          alt: r.title || r.category || "Gallery media",
+          type: (r.media_type === "video" ? "video" : "image") as "image" | "video",
+        }))
+        .filter((m) => !!m.src);
       // Merge admin-uploaded items with the built-in local gallery, dedupe by src.
       const seen = new Set<string>();
       return [...remote, ...localGalleryMedia].filter((m) => {

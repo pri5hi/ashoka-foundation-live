@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { Trash2, Upload, Star } from "lucide-react";
-import { uploadMedia } from "@/lib/admin-utils";
+import { uploadMedia, resolveMediaUrls } from "@/lib/admin-utils";
 
 export const Route = createFileRoute("/admin/gallery")({ component: GalleryAdmin });
 
@@ -26,7 +26,12 @@ function GalleryAdmin() {
 
   const { data: rows } = useQuery({
     queryKey: ["admin-gallery"],
-    queryFn: async () => (await supabase.from("gallery").select("*").order("display_order", { ascending: true }).order("created_at", { ascending: false })).data || [],
+    queryFn: async () => {
+      const { data } = await supabase.from("gallery").select("*").order("display_order", { ascending: true }).order("created_at", { ascending: false });
+      const list = data || [];
+      const urlMap = await resolveMediaUrls(list.map((r: any) => r.image_url).filter(Boolean));
+      return list.map((r: any) => ({ ...r, display_url: urlMap[r.image_url] || r.image_url }));
+    },
   });
 
   async function onUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -110,9 +115,10 @@ function GalleryAdmin() {
         {visible.map((r: any) => (
           <Card key={r.id} className="overflow-hidden">
             {r.media_type === "video" ? (
-              <video src={r.image_url} className="h-40 w-full object-cover" controls />
+              <video src={r.display_url || r.image_url} className="h-40 w-full object-cover" controls />
             ) : (
-              <img src={r.image_url} alt={r.title || ""} className="h-40 w-full object-cover" />
+              <img src={r.display_url || r.image_url} alt={r.title || ""} className="h-40 w-full object-cover" />
+
             )}
             <div className="p-3 space-y-2">
               <div className="text-xs text-muted-foreground">{r.category}</div>
