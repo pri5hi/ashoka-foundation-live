@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { Trash2, Upload, Star } from "lucide-react";
-import { uploadMedia } from "@/lib/admin-utils";
+import { uploadMedia, resolveMediaUrls } from "@/lib/admin-utils";
 
 export const Route = createFileRoute("/admin/gallery")({ component: GalleryAdmin });
 
