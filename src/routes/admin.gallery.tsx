@@ -26,7 +26,12 @@ function GalleryAdmin() {
 
   const { data: rows } = useQuery({
     queryKey: ["admin-gallery"],
-    queryFn: async () => (await supabase.from("gallery").select("*").order("display_order", { ascending: true }).order("created_at", { ascending: false })).data || [],
+    queryFn: async () => {
+      const { data } = await supabase.from("gallery").select("*").order("display_order", { ascending: true }).order("created_at", { ascending: false });
+      const list = data || [];
+      const urlMap = await resolveMediaUrls(list.map((r: any) => r.image_url).filter(Boolean));
+      return list.map((r: any) => ({ ...r, display_url: urlMap[r.image_url] || r.image_url }));
+    },
   });
 
   async function onUpload(e: React.ChangeEvent<HTMLInputElement>) {
