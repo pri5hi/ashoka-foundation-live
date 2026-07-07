@@ -2,6 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const BUCKET = "cms-media";
+const SIGN_TTL = 60 * 60; // 1 hour
 
 export async function uploadMedia(file: File, folder = "uploads"): Promise<string | null> {
   const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
@@ -11,14 +12,36 @@ export async function uploadMedia(file: File, folder = "uploads"): Promise<strin
     toast.error("Upload failed: " + error.message);
     return null;
   }
-  // Bucket is private (workspace blocks public buckets), so mint a long-lived signed URL.
-  const TEN_YEARS = 60 * 60 * 24 * 365 * 10;
-  const { data: signed, error: signErr } = await supabase.storage.from(BUCKET).createSignedUrl(path, TEN_YEARS);
-  if (signErr || !signed?.signedUrl) {
-    toast.error("Could not generate media URL: " + (signErr?.message || "unknown"));
-    return null;
+  // Bucket is private — store the storage path itself; callers sign on read.
+  return path;
+}
+
+/**
+ * Resolve a stored `image_url` value (either a storage path in the private
+ * cms-media bucket, or a legacy absolute URL) to a URL usable in <img>/<video>.
+ * Signs private-bucket paths on demand so the public site always gets a fresh URL.
+ */
+export async function resolveMediaUrls(values: string[]): Promise<Record<string, string>> {
+  const map: Record<string, string> = {};
+  const toSign: string[] = [];
+  for (const v of values) {
+    if (!v) continue;
+    if (/^https?:\/\//i.test(v)) {
+      // Legacy signed/public URL previously stored in DB — pass through.
+      map[v] = v;
+    } else {
+      toSign.push(v);
+    }
   }
-  return signed.signedUrl;
+  if (toSign.length) {
+    const { data, error } = await supabase.storage.from(BUCKET).createSignedUrls(toSign, SIGN_TTL);
+    if (!error && data) {
+      for (const item of data) {
+        if (item.path && item.signedUrl) map[item.path] = item.signedUrl;
+      }
+    }
+  }
+  return map;
 }
 
 export function downloadCSV(rows: Record<string, any>[], filename: string) {
