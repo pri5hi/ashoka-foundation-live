@@ -36,16 +36,14 @@ export async function resolveMediaUrls(values: string[]): Promise<Record<string,
   if (toSign.length) {
     const { data, error } = await supabase.storage.from(BUCKET).createSignedUrls(toSign, SIGN_TTL);
     if (!error && data) {
-  for (const item of data) {
-    console.log("Signed URL item:", item);
-
-    if (item.path && item.signedUrl) {
-      map[item.path] = item.signedUrl.startsWith("http")
-        ? item.signedUrl
-        : `${import.meta.env.VITE_SUPABASE_URL}/storage/v1${item.signedUrl}`;
+      for (const item of data) {
+        if (item.path && item.signedUrl) {
+          map[item.path] = item.signedUrl.startsWith("http")
+            ? item.signedUrl
+            : `${import.meta.env.VITE_SUPABASE_URL}/storage/v1${item.signedUrl}`;
+        }
+      }
     }
-  }
-}
   }
   return map;
 }
