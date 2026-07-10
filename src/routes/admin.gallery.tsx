@@ -52,6 +52,7 @@ function GalleryAdmin() {
     toast.success(`${ok} item(s) uploaded`);
     setTitle(""); setCaption("");
     qc.invalidateQueries({ queryKey: ["admin-gallery"] });
+    qc.invalidateQueries({ queryKey: ["public-gallery"] });
     (e.target as HTMLInputElement).value = "";
   }
 

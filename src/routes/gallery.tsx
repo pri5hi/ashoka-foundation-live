@@ -81,8 +81,9 @@ function Gallery() {
 
   const { data: photos = [], isLoading } = useQuery({
     queryKey: ["public-gallery"],
-    initialData: localGalleryMedia,
-    staleTime: 30_000,
+    placeholderData: localGalleryMedia,
+    staleTime: 0,
+    refetchOnMount: "always",
     queryFn: async (): Promise<MediaItem[]> => {
       const { data, error } = await supabase
         .from("gallery")
