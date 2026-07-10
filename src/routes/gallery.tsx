@@ -64,6 +64,15 @@ const localGalleryMedia: MediaItem[] = [
   { src: "/images/gallery/Udaan17.jpg", cat: "UDAAN", alt: "Udaan17", type: "image" },
   { src: "/images/gallery/Udaan18.jpg", cat: "UDAAN", alt: "Udaan18", type: "image" },
   { src: "/images/gallery/Udaan19.jpg", cat: "UDAAN", alt: "Udaan19", type: "image" },
+  { src: "/images/gallery/Udaan20.jpg", cat: "UDAAN", alt: "Udaan20", type: "image" },
+  { src: "/images/gallery/Udaan21.jpg", cat: "UDAAN", alt: "Udaan21", type: "image" },
+  { src: "/images/gallery/Udaan22.jpg", cat: "UDAAN", alt: "Udaan22", type: "image" },
+  { src: "/images/gallery/Udaan23.jpg", cat: "UDAAN", alt: "Udaan23", type: "image" },
+  { src: "/images/gallery/Udaan24.jpg", cat: "UDAAN", alt: "Udaan24", type: "image" },
+  { src: "/images/gallery/Udaan25.jpg", cat: "UDAAN", alt: "Udaan25", type: "image" },
+  { src: "/images/gallery/Udaan26.jpg", cat: "UDAAN", alt: "Udaan26", type: "image" },
+  { src: "/images/gallery/Udaan27.jpg", cat: "UDAAN", alt: "Udaan27", type: "image" },
+  { src: "/videos/projects/Udaan1.mp4", cat: "UDAAN", alt: "Udaan video", type: "video" },
 ];
 
 function Gallery() {
