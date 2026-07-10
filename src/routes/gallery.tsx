@@ -91,21 +91,13 @@ function Gallery() {
           type: (r.media_type === "video" ? "video" : "image") as "image" | "video",
         }))
         .filter((m) => !!m.src);
-      console.log("REMOTE ITEMS:", remote);
-      console.log("URL MAP:", urlMap);
-      console.log("DATABASE:", data);
       // Merge admin-uploaded items with the built-in local gallery, dedupe by src.
       const seen = new Set<string>();
-
-      const finalGallery = [...remote, ...localGalleryMedia].filter((m) => {
+      return [...remote, ...localGalleryMedia].filter((m) => {
         if (seen.has(m.src)) return false;
         seen.add(m.src);
         return true;
       });
-
-      console.log("FINAL GALLERY:", finalGallery);
-
-      return finalGallery;
     },
   });
 
